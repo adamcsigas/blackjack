@@ -18,14 +18,6 @@ class Game {
         $this->dealer = new Player('dealer');
     }
 
-    function initializeGame()
-    {
-        $this->createPlayers();
-        $this->deck = new Deck();
-        $this->drawCards();
-        $this->evaluateStartingHand();
-    }
-
     function drawCards()
     {
         $numberOfParticipants = 2;
@@ -80,6 +72,9 @@ class Game {
         }
     }
 
+    public function getWinner() {return $this->winner;}
+    public function setWinner($winner){$this->winner = $winner;}
+
     function evaluateStartingHand()
     {
         if($this->isBlackJack() || $this->isBusted()) {
@@ -87,23 +82,28 @@ class Game {
         }
     }
 
-    //    function startGame() {
-//
-//        $this->initializeGame();
-//        $winner = $this->evaluateStartingHand();
-//
-//        if($winner === null)
-//        {
-//            $this->drawCardUntil(player,17,dealer);
-//            $this->drawCardUntil(dealer,$this->getPlayerScore(player),player);
-//        }
-//
-//        $playerHand = $this->getPlayerHand();
-//        $dealerHand = $this->getPlayerHand();
-//
-//        return $winner;
-//    }
+    function initializeGame()
+    {
+        $this->createPlayers();
+        $this->deck = new Deck();
+        $this->drawCards();
+        $this->evaluateStartingHand();
+    }
 
+    function startGame()
+    {
+        $this->initializeGame();
+
+        if ($this->winner === null) {
+            $this->drawCardUntil(player, 17, dealer);
+            $this->drawCardUntil(dealer, $this->getPlayerScore(player), player);
+        }
+
+        $playerHand = $this->getPlayerHand();
+        $dealerHand = $this->getPlayerHand();
+
+        return $this->winner;
+    }
 
     function getParticipantsHands()
     {
@@ -127,9 +127,6 @@ class Game {
 //        }
 //        $this->setPlayerHand();
 //    }
-
-    public function getWinner() {return $this->winner;}
-    public function setWinner($winner){$this->winner = $winner;}
 }
 
 $testGame = new Game();
