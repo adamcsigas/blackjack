@@ -1,0 +1,16 @@
+{
+    "name": "csigusz/blackjack",
+    "description": "blackjack",
+    "authors": [
+        {
+            "name": "Adam Csigas",
+            "email": "adam.csigas@adevinta.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Csigusz\\Blackjack\\": "src/"
+        }
+    },
+    "require": {}
+}

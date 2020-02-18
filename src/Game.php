@@ -1,5 +1,6 @@
 <?php
-require_once('./classes.php');
+
+namespace Csigusz\Blackjack;
 
 class Game {
     private $deck = [];
@@ -44,10 +45,10 @@ class Game {
         if (($playerPoints == 21 && $dealerPoints == 21) ||
             $playerPoints == 21)
         {
-            $this->setWinner($this->player->getName());
+            $this->setWinner($this->player);
             return true;
         } else if ($dealerPoints == 21) {
-            $this->setWinner($this->dealer->getName());
+            $this->setWinner($this->dealer);
             return true;
         } else {
             return false;
@@ -131,4 +132,9 @@ class Game {
 //        $this->setPlayerHand();
 //    }
 }
+
+$testGame = new Game();
+
+print_r($testGame->getWinner());
+print_r($testGame->getParticipantsHands());
 
