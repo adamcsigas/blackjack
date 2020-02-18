@@ -1,7 +1,8 @@
 <?php
 require_once('./classes.php');
 
-class Game {
+class Game
+{
     private $deck = [];
     private $player;
     private $dealer;
@@ -36,14 +37,13 @@ class Game {
         }
     }
 
-    function isBlackJack() :bool
+    function isBlackJack(): bool
     {
         $playerPoints = $this->player->calculatePoints();
         $dealerPoints = $this->dealer->calculatePoints();
 
         if (($playerPoints == 21 && $dealerPoints == 21) ||
-            $playerPoints == 21)
-        {
+            $playerPoints == 21) {
             $this->setWinner($this->player->getName());
             return true;
         } else if ($dealerPoints == 21) {
@@ -54,14 +54,13 @@ class Game {
         }
     }
 
-    function isBusted() :bool
+    function isBusted(): bool
     {
         $playerPoints = $this->player->calculatePoints();
         $dealerPoints = $this->dealer->calculatePoints();
 
-        if( ($playerPoints == 22 && $dealerPoints == 22) ||
-            $playerPoints == 22)
-        {
+        if (($playerPoints == 22 && $dealerPoints == 22) ||
+            $playerPoints == 22) {
             $this->setWinner($this->dealer->getName());
             return true;
         } else if ($dealerPoints == 22) {
@@ -72,12 +71,19 @@ class Game {
         }
     }
 
-    public function getWinner() {return $this->winner;}
-    public function setWinner($winner){$this->winner = $winner;}
+    public function getWinner()
+    {
+        return $this->winner;
+    }
+
+    public function setWinner($winner)
+    {
+        $this->winner = $winner;
+    }
 
     function evaluateStartingHand()
     {
-        if($this->isBlackJack() || $this->isBusted()) {
+        if ($this->isBlackJack() || $this->isBusted()) {
             return $this->getWinner();
         }
     }
@@ -131,5 +137,5 @@ class Game {
 //        $this->setPlayerHand();
 //    }
 //}
-
+}
 
