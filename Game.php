@@ -5,7 +5,7 @@ class Game {
     private $deck = [];
     private $player;
     private $dealer;
-    private $winner = "none had blackjack. \n";
+    private $winner = null;
 
     public function __construct()
     {
@@ -54,7 +54,7 @@ class Game {
         }
     }
 
-    function isBusted()
+    function isBusted() :bool
     {
         $playerPoints = $this->player->calculatePoints();
         $dealerPoints = $this->dealer->calculatePoints();
@@ -90,20 +90,20 @@ class Game {
         $this->evaluateStartingHand();
     }
 
-    function startGame()
-    {
-        $this->initializeGame();
-
-        if ($this->winner === null) {
-            $this->drawCardUntil(player, 17, dealer);
-            $this->drawCardUntil(dealer, $this->getPlayerScore(player), player);
-        }
-
-        $playerHand = $this->getPlayerHand();
-        $dealerHand = $this->getPlayerHand();
-
-        return $this->winner;
-    }
+//    function startGame() //todo 02
+//    {
+//        $this->initializeGame();
+//
+//        if ($this->winner === null) {
+//            $this->drawCardUntil(player, 17, dealer);
+//            $this->drawCardUntil(dealer, $this->getPlayerScore(player), player);
+//        }
+//
+//        $playerHand = $this->getPlayerHand();
+//        $dealerHand = $this->getPlayerHand();
+//
+//        return $this->winner;
+//    }
 
     function getParticipantsHands()
     {
@@ -112,10 +112,13 @@ class Game {
         $dealersName = $this->dealer->getName();
         $dealersHand = $this->dealer->calculateHand();
 
-        return "${playersName} : ${playersHand} \n${dealersName} : ${dealersHand} \n";
+        return "\n${playersName} : ${playersHand} \n${dealersName} : ${dealersHand} \n";
     }
 
-//    function drawCardUntil($participantA,$score,$participantB) {
+//    function drawCardUntil() //todo
+//    {
+//        $playerPoints = $this->player->calculatePoints();
+//        $dealerPoints = $this->dealer->calculatePoints();
 //        while($this->getPlayerScore($participantA) < $score)
 //        {
 //            $this->drawCard($participantA);
@@ -127,10 +130,6 @@ class Game {
 //        }
 //        $this->setPlayerHand();
 //    }
-}
+//}
 
-$testGame = new Game();
-
-print_r($testGame);
-print_r($testGame->getParticipantsHands());
 
