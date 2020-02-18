@@ -44,7 +44,7 @@ class Game {
         }
     }
 
-    function isBlackJack()
+    function isBlackJack() :bool
     {
         $playerPoints = $this->player->calculatePoints();
         $dealerPoints = $this->dealer->calculatePoints();
@@ -62,7 +62,32 @@ class Game {
         }
     }
 
-//    function startGame() {
+    function isBusted()
+    {
+        $playerPoints = $this->player->calculatePoints();
+        $dealerPoints = $this->dealer->calculatePoints();
+
+        if( ($playerPoints == 22 && $dealerPoints == 22) ||
+            $playerPoints == 22)
+        {
+            $this->setWinner($this->dealer->getName());
+            return true;
+        } else if ($dealerPoints == 22) {
+            $this->setWinner($this->player->getName());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function evaluateStartingHand()
+    {
+        if($this->isBlackJack() || $this->isBusted()) {
+            return $this->getWinner();
+        }
+    }
+
+    //    function startGame() {
 //
 //        $this->initializeGame();
 //        $winner = $this->evaluateStartingHand();
@@ -79,18 +104,6 @@ class Game {
 //        return $winner;
 //    }
 
-    function isBusted() {}
-
-    function evaluateStartingHand()
-    {
-        if ($this->isBlackJack()) {
-            return $this->getWinner();
-        }
-        if ($this->isBusted()) {
-            return $this->winner;
-        }
-        return $this->winner;;
-    }
 
     function getParticipantsHands()
     {
@@ -122,4 +135,5 @@ class Game {
 $testGame = new Game();
 
 print_r($testGame);
+print_r($testGame->getParticipantsHands());
 

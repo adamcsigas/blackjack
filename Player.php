@@ -34,7 +34,7 @@ class Player {
         $Cards = $this->getCards();
 
         foreach ($Cards as $card) {
-            $hand = $hand . $card->__toString() . ', ';
+            $hand = $hand . $card->__toString() . ', '; //todo: last time should not add ', ' ;
         }
         return $hand;
     }
