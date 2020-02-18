@@ -9,10 +9,7 @@ class Game
     private $dealer;
     private $winner = null;
 
-    /**
-     * @return null
-     */
-    public function getWinner(){return $this->winner;}
+    public function getWinner() {return $this->winner;}
     public function setWinner($winner){$this->winner = $winner;}
 
     //for test
@@ -57,17 +54,6 @@ class Game
         }
     }
 
-    function calculatePoints(Player $participant)
-    {
-        $sum = 0;
-
-        foreach ($participant as $key => $value) {
-            $sum += $value->getCardValue();
-        }
-        return $sum;
-    }
-
-
 //    function startGame() {
 //
 //        $this->initializeGame();
@@ -86,9 +72,7 @@ class Game
 //    }
 
     function isBlackJack() {
-        $playerPoints = $this->calculatePoints($this->player);
-        $dealerPoints = $this->calculatePoints($this->dealer);
-        return $playerPoints;
+        //return $this->player->calculatePoints();
     }
 
     function isBusted() {}
@@ -123,12 +107,4 @@ class Game
 //    }
 
 }
-
-$blackJack = new Game();
-$playerCards = $blackJack->getPlayer()->getCards();
-print_r($blackJack->calculatePoints($playerCards));
-
-
-
-
 
