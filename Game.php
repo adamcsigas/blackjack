@@ -1,21 +1,11 @@
 <?php
 require_once('./classes.php');
 
-class Game
-{
-
+class Game {
     private $deck = [];
     private $player;
     private $dealer;
-    private $winner = 'szalami';
-
-    public function getWinner() {return $this->winner;}
-    public function setWinner($winner){$this->winner = $winner;}
-
-    //for test
-    public function getPlayer(){return $this->player;}
-    public function getDealer(){return $this->dealer;}
-    //
+    private $winner = "none had blackjack. \n";
 
     public function __construct()
     {
@@ -33,7 +23,6 @@ class Game
         $this->createPlayers();
         $this->deck = new Deck();
         $this->drawCards();
-        //$this->isBlackJack();
         $this->evaluateStartingHand();
     }
 
@@ -55,6 +44,24 @@ class Game
         }
     }
 
+    function isBlackJack()
+    {
+        $playerPoints = $this->player->calculatePoints();
+        $dealerPoints = $this->dealer->calculatePoints();
+
+        if (($playerPoints == 21 && $dealerPoints == 21) ||
+            $playerPoints == 21)
+        {
+            $this->setWinner($this->player->getName());
+            return true;
+        } else if ($dealerPoints == 21) {
+            $this->setWinner($this->dealer->getName());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 //    function startGame() {
 //
 //        $this->initializeGame();
@@ -72,26 +79,7 @@ class Game
 //        return $winner;
 //    }
 
-    function isBlackJack() {
-        $playerPoints = $this->player->calculatePoints();
-        $dealerPoints = $this->dealer->calculatePoints();
-
-        if (($playerPoints == 21 && $dealerPoints == 21) ||
-             $playerPoints == 21)
-        {
-            $this->setWinner($this->player->getName());
-            return true;
-        } else if ($dealerPoints == 21) {
-            $this->setWinner($this->dealer->getName());
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
     function isBusted() {}
-
 
     function evaluateStartingHand()
     {
@@ -104,10 +92,16 @@ class Game
         return $this->winner;;
     }
 
-//    function getPlayerScore($participant) {} //jatekos
-//    function setPlayerScore($participant) {}
-//
-//
+    function getParticipantsHands()
+    {
+        $playersName = $this->player->getName();
+        $playersHand = $this->player->calculateHand();
+        $dealersName = $this->dealer->getName();
+        $dealersHand = $this->dealer->calculateHand();
+
+        return "${playersName} : ${playersHand} \n${dealersName} : ${dealersHand} \n";
+    }
+
 //    function drawCardUntil($participantA,$score,$participantB) {
 //        while($this->getPlayerScore($participantA) < $score)
 //        {
@@ -121,8 +115,11 @@ class Game
 //        $this->setPlayerHand();
 //    }
 
+    public function getWinner() {return $this->winner;}
+    public function setWinner($winner){$this->winner = $winner;}
 }
 
 $testGame = new Game();
 
-print_r($testGame->getWinner());
+print_r($testGame);
+

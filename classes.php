@@ -1,5 +1,5 @@
 <?php
-include 'player.php';
-include 'card.php';
-include 'deck.php';
+include 'Player.php';
+include 'Card.php';
+include 'Deck.php';
 

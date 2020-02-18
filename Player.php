@@ -1,7 +1,6 @@
 <?php
 
-class Player
-{
+class Player {
     private $name;
     private $cards;
 
@@ -28,4 +27,16 @@ class Player
         }
         return $sum;
     }
+
+    public function calculateHand()
+    {
+        $hand = null;
+        $Cards = $this->getCards();
+
+        foreach ($Cards as $card) {
+            $hand = $hand . $card->__toString() . ', ';
+        }
+        return $hand;
+    }
 }
+

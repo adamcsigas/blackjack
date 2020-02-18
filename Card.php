@@ -1,7 +1,7 @@
 <?php
 
 
-class card
+class Card
 {
     protected $type;
     protected $value;
@@ -27,3 +27,4 @@ class card
         return $this->type . '' . $this->value;
     }
 }
+

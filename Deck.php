@@ -26,9 +26,7 @@ class Deck {
         }
     }
 
-    private function shuffleDeck() {
-        shuffle($this->deck);
-    }
+    private function shuffleDeck() { shuffle($this->deck);}
 
     public function getDeck(){return $this->deck;}
     public function setDeck($deck) { $this->deck[] = $deck;}
@@ -39,22 +37,5 @@ class Deck {
         array_shift($this->deck);
         return $pickedCard;
     }
-
-    function getCardValue()
-    {
-        if($this->value === 'A') {
-            $value = 11;
-        }else {
-            $value = is_numeric($this->value) ? $this->value : 10;
-        }
-        return  $value;
-    }
 }
 
-//$testDeck = new Deck();
-//
-//print_r($testDeck);
-//
-//print_r($testDeck->pickCard());
-//
-//print_r($testDeck);
