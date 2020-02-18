@@ -10,7 +10,7 @@ class Player
         $this->cards = [];
     }
 
-    public function getName(){return $this->name;} //winnerhez fog kelleni
+    public function getName(){return $this->name;} //winnerhez kell
     public function getCards() { return $this->cards; }
     public function setCards($cards) { $this->cards[] = $cards; }
 
@@ -18,7 +18,7 @@ class Player
         return count($this->cards,COUNT_RECURSIVE);
     }
 
-    function calculatePoints()
+    public function calculatePoints()
     {
         $sum = 0;
         $Cards = $this->getCards();

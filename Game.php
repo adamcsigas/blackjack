@@ -7,7 +7,7 @@ class Game
     private $deck = [];
     private $player;
     private $dealer;
-    private $winner = null;
+    private $winner = 'szalami';
 
     public function getWinner() {return $this->winner;}
     public function setWinner($winner){$this->winner = $winner;}
@@ -33,7 +33,8 @@ class Game
         $this->createPlayers();
         $this->deck = new Deck();
         $this->drawCards();
-        //$this->evaluateStartingHand();
+        //$this->isBlackJack();
+        $this->evaluateStartingHand();
     }
 
     function drawCards()
@@ -72,7 +73,21 @@ class Game
 //    }
 
     function isBlackJack() {
-        //return $this->player->calculatePoints();
+        $playerPoints = $this->player->calculatePoints();
+        $dealerPoints = $this->dealer->calculatePoints();
+
+        if (($playerPoints == 21 && $dealerPoints == 21) ||
+             $playerPoints == 21)
+        {
+            $this->setWinner($this->player->getName());
+            return true;
+        } else if ($dealerPoints == 21) {
+            $this->setWinner($this->dealer->getName());
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     function isBusted() {}
@@ -81,7 +96,7 @@ class Game
     function evaluateStartingHand()
     {
         if ($this->isBlackJack()) {
-            return $this->winner;
+            return $this->getWinner();
         }
         if ($this->isBusted()) {
             return $this->winner;
@@ -108,3 +123,6 @@ class Game
 
 }
 
+$testGame = new Game();
+
+print_r($testGame->getWinner());
