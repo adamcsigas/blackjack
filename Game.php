@@ -57,7 +57,7 @@ class Game
         }
     }
 
-    function calculatePoints($participant)
+    function calculatePoints(Player $participant)
     {
         $sum = 0;
 
@@ -126,8 +126,9 @@ class Game
 
 $blackJack = new Game();
 $playerCards = $blackJack->getPlayer()->getCards();
-print_r($playerCards);
+print_r($blackJack->calculatePoints($playerCards));
 
-print_r($player);
+
+
 
 

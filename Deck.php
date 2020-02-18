@@ -1,7 +1,5 @@
 <?php
 
-include 'card.php';
-
 class Deck {
 
     const
@@ -23,7 +21,7 @@ class Deck {
         {
             foreach (self::VALUES as $values)
             {
-                $this->deck[] = new Card($type,$values);
+                $this->deck[] = new card($type,$values);
             }
         }
     }
@@ -53,10 +51,10 @@ class Deck {
     }
 }
 
-$testDeck = new Deck();
-
-print_r($testDeck);
-
-print_r($testDeck->pickCard());
-
-print_r($testDeck);
+//$testDeck = new Deck();
+//
+//print_r($testDeck);
+//
+//print_r($testDeck->pickCard());
+//
+//print_r($testDeck);

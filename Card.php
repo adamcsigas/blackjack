@@ -1,7 +1,7 @@
 <?php
 
 
-class Card
+class card
 {
     protected $type;
     protected $value;
@@ -16,7 +16,7 @@ class Card
     {
         if($this->value === 'A') {
             $value = 11;
-        }else {
+        } else {
             $value = is_numeric($this->value) ? $this->value : 10;
         }
         return  $value;
