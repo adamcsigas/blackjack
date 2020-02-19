@@ -4,14 +4,15 @@ namespace Csigusz\Blackjack;
 
 class Game
 {
-    private $deck = [];
+    public $deck = [];
     private $player;
     private $dealer;
-    private $winner = '';
+    private $winner = null;
 
     public function __construct()
     {
         $this->runGame();
+        $this->getWinner();
         $this->printFinalResult();
     }
 
@@ -60,10 +61,10 @@ class Game
         $playerPoints = $this->player->calculatePoints();
         $dealerPoints = $this->dealer->calculatePoints();
 
-        if ($playerPoints == 22) {
+        if ($playerPoints > 21) {
             $this->setWinner($this->dealer);
             return true;
-        } else if ($dealerPoints == 22) {
+        } else if ($dealerPoints > 21) {
             $this->setWinner($this->player);
             return true;
         } else {
@@ -73,7 +74,7 @@ class Game
 
     public function getWinner()
     {
-        return print_r($this->winner);
+        return print_r("$this->winner\n");
     }
 
     public function setWinner(string $winner)
@@ -81,11 +82,12 @@ class Game
         $this->winner = $winner;
     }
 
-    function evaluateStartingHand()
+    function isTheGameOver()
     {
         if ($this->isBlackJack() || $this->isBusted()) {
-            return $this->getWinner();
+            return true;
         }
+        return false;
     }
 
     function initializeGame()
@@ -93,22 +95,37 @@ class Game
         $this->createPlayers();
         $this->deck = new Deck();
         $this->drawCards();
-        $this->evaluateStartingHand();
+        $this->isTheGameOver();
     }
 
     public function runGame() //todo 02
     {
         $this->initializeGame();
 
-        if ($this->winner === '') {
-            $this->drawCardUntil($this->player, 16, $this->dealer);
+        if (!$this->isTheGameOver()) {
+            $this->drawCardUntil($this->player, 16);
             if (!$this->isBusted()) {
-                $this->drawCardUntil($this->dealer,$this->player->calculatePoints(), $this->player);
+                $this->drawCardUntil($this->dealer, $this->player->calculatePoints());
             }
         }
     }
 
+    public function drawCardUntil(Player $participantA, int $score)
+    {
+        while ($participantA->calculatePoints() <= $score) {
+            $pickedCard = $this->deck->pickCard();
+            $participantA->addCard($pickedCard);
+            if ($this->isBusted()) {
+                break;
+            }
+        }
+    }
 
+    public function checkWhoWon() {
+        $playerPoints = $this->player->calculatePoints();
+        $dealerPoints = $this->dealer->calculatePoints();
+
+    }
 
     public function printFinalResult()
     {
@@ -116,22 +133,8 @@ class Game
         $playersHand = $this->player->calculateHand();
         $dealersName = $this->dealer;
         $dealersHand = $this->dealer->calculateHand();
-        $winner = $this->getWinner(); //1??!?!?!!
 
-        return print_r("${winner} \n${playersName} : ${playersHand} \n${dealersName} : ${dealersHand} \n");
-    }
-
-    public function drawCardUntil(Player $participantA, int $score, Player $participantB)
-    {
-        $pickedCard = $this->deck->pickCard();
-
-        while ($participantA->calculatePoints() <= $score) {
-            $participantA->addCard($pickedCard);
-            if ($this->isBusted()) {
-                return $this->setWinner($participantB);
-            }
-        }
-        return 'not yet implemented';
+        return print_r("${playersName} : ${playersHand} \n${dealersName} : ${dealersHand} \n");
     }
 }
 
