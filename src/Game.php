@@ -2,8 +2,6 @@
 
 namespace Csigusz\Blackjack;
 
-//todo if none busted and dealer has more point no one wins
-
 class Game
 {
     public $deck = [];
@@ -14,6 +12,7 @@ class Game
     public function __construct()
     {
         $this->runGame();
+        $this->checkFinalScore();
         $this->getWinner();
         $this->printFinalResult();
     }
@@ -71,6 +70,16 @@ class Game
             return true;
         } else {
             return false;
+        }
+    }
+
+    function checkFinalScore() //todo if none busted and dealer has more point no one wins. <- this solution ugly af
+    {
+        $playerPoints = $this->player->calculatePoints();
+        $dealerPoints = $this->dealer->calculatePoints();
+
+        if ($dealerPoints > $playerPoints && $dealerPoints < 22) {
+            $this->setWinner($this->dealer);
         }
     }
 
