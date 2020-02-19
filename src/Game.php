@@ -12,7 +12,6 @@ class Game
     public function __construct()
     {
         $this->runGame();
-        $this->checkFinalScore();
         $this->getWinner();
         $this->printFinalResult();
     }
@@ -72,8 +71,8 @@ class Game
             return false;
         }
     }
-
-    function checkFinalScore() //todo if none busted and dealer has more point no one wins. <- this solution ugly af
+    //if written well, this countScores() is totally not needed
+    function countScores() //todo if none busted and dealer has more point no one wins. <- this solution ugly af
     {
         $playerPoints = $this->player->calculatePoints();
         $dealerPoints = $this->dealer->calculatePoints();
@@ -93,6 +92,13 @@ class Game
         $this->winner = $winner;
     }
 
+    private function initializeGame()
+    {
+        $this->createPlayers();
+        $this->deck = new Deck();
+        $this->drawCards();
+    }
+
     public function isTheGameOver()
     {
         if ($this->isBlackJack() || $this->isBusted()) {
@@ -101,17 +107,7 @@ class Game
         return false;
     }
 
-    private function initializeGame()
-    {
-        $this->createPlayers();
-        $this->deck = new Deck();
-        $this->drawCards();
-    }
-
-    private function runGame()
-    {
-        $this->initializeGame();
-
+    public function continueGame() {
         if (!$this->isTheGameOver()) {
             $this->drawCardUntil($this->player, 16);
             if (!$this->isBusted()) {
@@ -119,6 +115,14 @@ class Game
             }
         }
     }
+
+    private function runGame()
+    {
+        $this->initializeGame();
+        $this->continueGame();
+        $this->countScores();
+    }
+
 
     public function drawCardUntil(Player $participant, int $reachScore)
     {
