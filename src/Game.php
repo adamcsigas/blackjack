@@ -2,6 +2,8 @@
 
 namespace Csigusz\Blackjack;
 
+//todo if none busted and dealer has more point no one wins
+
 class Game
 {
     public $deck = [];
@@ -98,7 +100,7 @@ class Game
         $this->isTheGameOver();
     }
 
-    public function runGame() //todo 02
+    public function runGame()
     {
         $this->initializeGame();
 
@@ -119,12 +121,6 @@ class Game
                 break;
             }
         }
-    }
-
-    public function checkWhoWon() {
-        $playerPoints = $this->player->calculatePoints();
-        $dealerPoints = $this->dealer->calculatePoints();
-
     }
 
     public function printFinalResult()
