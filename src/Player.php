@@ -24,11 +24,6 @@ class Player
         $this->cards[] = $card;
     }
 
-    public function calculateAmountOfCards(): int
-    {
-        return count($this->cards);
-    }
-
     public function calculatePoints(): int
     {
         return array_reduce(
@@ -40,7 +35,7 @@ class Player
         );
     }
 
-    public function calculateHand(): string
+    public function stringifyHand(): string
     {
         return implode(', ', $this->cards);
     }
