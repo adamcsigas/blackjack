@@ -16,8 +16,8 @@ class Deck
     private function createDeck()
     {
         foreach (Card::TYPES as $type) {
-            foreach (Card::VALUES as $value) {
-                $this->deck[] = new Card($type, $value);
+            foreach (Card::VALUES as $key=>$value) {
+                $this->deck[] = new Card($type, $key);
             }
         }
     }

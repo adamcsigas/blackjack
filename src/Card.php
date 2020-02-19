@@ -25,11 +25,11 @@ class Card
         'A' => 11,
     ];
 
-    public function __construct(string $type, string $value)
+    public function __construct(string $type, string $rank)
     {
         $this->type = $type;
-        $this->value = $value;
-        $this->numericValue = self::VALUES[$value];
+        $this->value = $rank;
+        $this->numericValue = self::VALUES[$rank];
     }
 
     public function getNumericValue(): int

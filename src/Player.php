@@ -2,7 +2,9 @@
 
 namespace Csigusz\Blackjack;
 
-class Player //todo dealer player külön osztály
+//todo dealer player külön osztály
+
+class Player
 {
     private $name;
     private $cards = [];
