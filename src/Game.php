@@ -84,7 +84,7 @@ class Game
         $this->winner = $winner;
     }
 
-    function isTheGameOver()
+    public function isTheGameOver()
     {
         if ($this->isBlackJack() || $this->isBusted()) {
             return true;
@@ -92,15 +92,14 @@ class Game
         return false;
     }
 
-    function initializeGame()
+    private function initializeGame()
     {
         $this->createPlayers();
         $this->deck = new Deck();
         $this->drawCards();
-        $this->isTheGameOver();
     }
 
-    public function runGame()
+    private function runGame()
     {
         $this->initializeGame();
 
@@ -112,11 +111,11 @@ class Game
         }
     }
 
-    public function drawCardUntil(Player $participantA, int $score)
+    public function drawCardUntil(Player $participant, int $reachScore)
     {
-        while ($participantA->calculatePoints() <= $score) {
+        while ($participant->calculatePoints() <= $reachScore) {
             $pickedCard = $this->deck->pickCard();
-            $participantA->addCard($pickedCard);
+            $participant->addCard($pickedCard);
             if ($this->isBusted()) {
                 break;
             }
