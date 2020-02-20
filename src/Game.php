@@ -8,14 +8,15 @@ class Game
 {
     /* @var Deck */
     private $deck;
-
-    private $winner = null;
-
     /* @var Player */
     private $player;
-
     /* @var Player */
     private $dealer;
+
+    private $winner = null;
+    private $cardToDraw = 2;
+    private $playerStopAt = 17;
+    private $maxWinningValue = 21;
 
     public function __construct()
     {
@@ -43,10 +44,10 @@ class Game
         $playerPoints = $this->player->calculatePoints();
         $dealerPoints = $this->dealer->calculatePoints();
 
-        if ($playerPoints == 21) { //const 21
+        if ($playerPoints == $this->maxWinningValue) {
             $this->setWinner($this->player);
             return true;
-        } else if ($dealerPoints == 21) {
+        } else if ($dealerPoints == $this->maxWinningValue) {
             $this->setWinner($this->dealer);
             return true;
         }
@@ -58,10 +59,10 @@ class Game
         $playerPoints = $this->player->calculatePoints();
         $dealerPoints = $this->dealer->calculatePoints();
 
-        if ($playerPoints > 21) {
+        if ($playerPoints > $this->maxWinningValue) {
             $this->setWinner($this->dealer);
             return true;
-        } else if ($dealerPoints > 21) {
+        } else if ($dealerPoints > $this->maxWinningValue) {
             $this->setWinner($this->player);
             return true;
         }
@@ -74,8 +75,10 @@ class Game
         $playerPoints = $this->player->calculatePoints();
         $dealerPoints = $this->dealer->calculatePoints();
 
-        if ($dealerPoints > $playerPoints && $dealerPoints < 22) {
+        if ($dealerPoints > $playerPoints && $dealerPoints <= $this->maxWinningValue) {
             $this->setWinner($this->dealer);
+        }elseif ($dealerPoints === $playerPoints) {
+            $this->setWinner('Tie');
         }
     }
 
@@ -93,7 +96,7 @@ class Game
     {
         $this->createPlayers();
         $this->deck = new Deck();
-        $this->drawCards(2);
+        $this->drawCards($this->cardToDraw);
     }
 
     public function isTheGameOver(): bool
@@ -114,7 +117,7 @@ class Game
     public function continueGame()
     {
         if (!$this->isTheGameOver()) {
-            $this->drawCardUntil($this->player, 17);
+            $this->drawCardUntil($this->player, $this->playerStopAt);
             if (!$this->isBusted()) {
                 $this->drawCardUntil($this->dealer, $this->player->calculatePoints());
             }
