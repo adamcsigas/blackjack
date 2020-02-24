@@ -9,8 +9,11 @@
     ],
     "autoload": {
         "psr-4": {
-            "Csigusz\\Blackjack\\": "src/"
+            "Csigusz\\Blackjack\\": "src/",
+            "App\\Models\\" : "App/Models"
         }
     },
-    "require": {}
+    "require": {
+        "phpunit/phpunit": "^7.5"
+    }
 }

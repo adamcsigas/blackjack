@@ -2,6 +2,8 @@
 
 namespace Csigusz\Blackjack;
 
+//exception testhez
+
 class Card
 {
     private $type;
@@ -32,7 +34,7 @@ class Card
         $this->numericValue = self::VALUES[$rank];
     }
 
-    public function getNumericValue(): int
+    public function getNumericValue()
     {
         return $this->numericValue;
     }

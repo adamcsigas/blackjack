@@ -1,3 +1,6 @@
 playground.php
+/App
+/tests/unit/SampleTest.php
+/tests/unit/UserTest.php
 
 /vendor/

@@ -69,6 +69,11 @@ class Game
         return false;
     }
 
+    public function isTheGameOver(): bool
+    {
+        return $this->isBlackJack() || $this->isBusted();
+    }
+
     //if written well, this countScores() is totally not needed
     function countScores() //todo if none busted and dealer has more point no one wins. <- this solution ugly af
     {
@@ -77,7 +82,7 @@ class Game
 
         if ($dealerPoints > $playerPoints && $dealerPoints <= $this->maxWinningValue) {
             $this->setWinner($this->dealer);
-        }elseif ($dealerPoints === $playerPoints) {
+        } elseif ($dealerPoints === $playerPoints) {
             $this->setWinner('Tie');
         }
     }
@@ -97,11 +102,6 @@ class Game
         $this->createPlayers();
         $this->deck = new Deck();
         $this->drawCards($this->cardToDraw);
-    }
-
-    public function isTheGameOver(): bool
-    {
-        return $this->isBlackJack() || $this->isBusted();
     }
 
     public function drawCardUntil(Player $participant, int $reachScore)
